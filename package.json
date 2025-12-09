@@ -1,0 +1,47 @@
+{
+  "name": "projet_smart_city",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "initDB": "node scripts/JS/initDB.js",
+    "startDocker": "docker run --env-file .env -d --name Covoiturage -p 5432:5432 --rm -d postgres",
+    "stopDocker": "docker stop Covoiturage",
+    "startRedis": "docker run -p 6379:6379 redis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexandre205/Projet_smart_city.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexandre205/Projet_smart_city/issues"
+  },
+  "homepage": "https://github.com/Alexandre205/Projet_smart_city#readme",
+  "type": "module",
+  "dependencies": {
+    "@vinejs/vine": "^4.1.0",
+    "argon2": "^0.44.0",
+    "axios": "^1.13.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "internal-ip": "^8.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3",
+    "redis": "^5.10.0",
+    "sharp": "^0.34.5",
+    "uuid": "^13.0.0",
+    "vine": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
