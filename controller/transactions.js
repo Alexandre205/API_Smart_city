@@ -1,5 +1,7 @@
 import {dbPool} from "../database/database.js";
-import {demandToRide,deleteRide} from "../model/transactions.js";
+import {demandToRide, createRideAndCar} from "../model/transactions.js";
+import {validateVehiculeCreate} from "../middleware/DataValidation/Validations/validateVehicleData.js";
+import {validateTrajetCreate} from "../middleware/DataValidation/Validations/validateTrajetData.js";
 
 export const demandeToRide = async(req,res) =>{
     try {
@@ -17,19 +19,13 @@ export const demandeToRide = async(req,res) =>{
     }
 }
 
-export const cancelRide = async(req,res) =>{
+export const addRideAndCar = async(req,res) =>{
     try {
-        await deleteRide(dbPool, {rideID: req.params.rideID, authId: req.val.authId, status: req.session.status});
-        return res.sendStatus(204);
+        console.log(req.val);
+        const rideId = await createRideAndCar(dbPool, {infos : req.val,authId: req.val?.authId});
+        return res.sendStatus(201).send(rideId);
     }catch(e){
         console.error(e);
-
-        if(e.message === "401"){
-            return res.status(404).json("Action non autorisée");
-        }else if (e.message === "404") {
-            return res.status(404).json("Ressource introuvable");
-        }else{
-            return res.status(500).json({ error: "Erreur serveur lors de la transaction" });
-        }
+        return res.status(500).json(e);
     }
 }

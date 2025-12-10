@@ -1,3 +1,4 @@
+import {createTrajet} from "./trajet.js";
 
 export const demandToRide = async function(SQLQueryBuilder,{demandID,carID}){
     const trx = await SQLQueryBuilder.transaction();
@@ -46,27 +47,29 @@ export const demandToRide = async function(SQLQueryBuilder,{demandID,carID}){
     }
 }
 
-export const deleteRide = async function(SQLQueryBuilder,{ rideID, authId, status }){
+export const createRideAndCar = async function(SQLQueryBuilder,{ infos, authId }){
     const trx = await SQLQueryBuilder.transaction();
     try{
-        const trajet = await trx('trajet').select('trajet_id','vehicule').where({trajet_id : rideID}).first();
-
-        if(!trajet){
-            throw new Error("404");
+        let trajetID;
+        let userId;
+        if(authId === undefined){
+            userId = infos.utilisateurId;
         }else{
-            const car = await trx('vehicule').select('utilisateur').where({immatriculation : trajet.vehicule}).first();
-            if(!car){
-                throw new Error("404");
-            }
-            if(car.utilisateur !== authId && status !== "admin"){
-                throw new Error("401")
-            }
+            userId = authId;
         }
 
-        await trx('passager').where({trajet : rideID}).delete();
-        await trx('trajet').where({trajet_id : rideID}).delete();
+        const carID = await trx('vehicule').insert({immatriculation:infos.immatriculation, nb_places_maximum:infos.nbPlaceMax,utilisateur:userId}).returning('immatriculation');
+        if(carID[0]) {
+           trajetID = await trx('trajet').insert({date_depart: infos.dateDepart, date_arrivee: infos.dateArrivee, vehicule: carID[0].immatriculation, addresse_depart: infos.addresseDepart, addresse_arrivee: infos.addresseArrivee, coordonnee_depart: infos.coordonneeDepart, coordonnee_arrivee: infos.coordonneeArrivee}).returning('trajet_id');
+        }
+        if(trajetID[0]) {
+            await trx.commit();
 
-        await trx.commit();
+            return trajetID[0];
+        }else{
+            await trx.rollback();
+            throw new Error();
+        }
 
     }catch(e){
         await trx.rollback();
