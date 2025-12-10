@@ -53,7 +53,7 @@ export const deleteUser = async function(queryBuilder,{utilisateurId,authId}){
     return await query.del();
 }
 
-export const getUserFiltrer = async (SQLQueryBuilder,{utilisateurId,nom,prenom,mail,telephone,offset=0,limit=100,fields='nom,prenom,email,telephone,mot_de_passe',authId})=>{
+export const getUserFiltrer = async (SQLQueryBuilder,{utilisateurId,nom,prenom,mail,telephone,offset=0,limit=100,fields='id,nom,prenom,email,telephone,mot_de_passe',authId})=>{
     let arrFields = extractFields(fields);
     if(authId){
         arrFields = arrFields.filter(val=>(val!=='email' && val!=='mot_de_passe'));
