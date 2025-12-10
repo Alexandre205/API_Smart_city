@@ -9,18 +9,18 @@ const createVehicule = async (SQLQueryBuilder,{immatriculation,nbPlaceMax,utilis
         nb_places_maximum:nbPlaceMax,
         utilisateur:utilisateurId
     })
-    .returning('immatriculation');
+    .returning('vehicule_id');
     return clePrimaire[0];
 }
 
-const readVehicule = async (SQLQueryBuilder,{immatriculation})=>{
-    const data = await SQLQueryBuilder.select('immatriculation','nb_places_maximum','utilisateur')
+const readVehicule = async (SQLQueryBuilder,{id})=>{
+    const data = await SQLQueryBuilder.select('vehicule_id','immatriculation','nb_places_maximum','utilisateur')
     .from('vehicule')
-    .where({immatriculation:immatriculation});
+    .where({vehicule_id:id});
     return data[0];
 }
 
-const updateVehicule = async (SQLQueryBuilder,{utilisateurId,immatriculation,nbPlaceMax,authId})=>{
+const updateVehicule = async (SQLQueryBuilder,{utilisateurId,vehiculeId,immatriculation,nbPlaceMax,authId})=>{
     const dataToUpdate = {};
     if(utilisateurId){
         dataToUpdate.utilisateur = utilisateurId;
@@ -28,19 +28,22 @@ const updateVehicule = async (SQLQueryBuilder,{utilisateurId,immatriculation,nbP
     if(nbPlaceMax){
         dataToUpdate.nb_places_maximum = nbPlaceMax;
     }
-    query = SQLQueryBuilder('vehicule').where({immatriculation:immatriculation});
+    if(immatriculation){
+        dataToUpdate.immatriculation = immatriculation;
+    }
+    let query = SQLQueryBuilder('vehicule').where({vehicule_id:vehiculeId});
 
     if(authId){
         query = query.join('utilisateur','vehicule.utilisateur','=','utilisateur.id');
         query = query.where({id:authId});
     }
-    const clePrimaire = await query.update(dataToUpdate).returning('immatriculation');
+    const clePrimaire = await query.update(dataToUpdate).returning('vehicule_id');
     return clePrimaire[0];
 }
 
-const deleteVehicule = async (SQLQueryBuilder,{immatriculation,authId})=>{
+const deleteVehicule = async (SQLQueryBuilder,{id,authId})=>{
     let query =  SQLQueryBuilder('vehicule')
-    .where({immatriculation:immatriculation});
+    .where({vehicule_id:id});
     if(authId){
         query = query.join('utilisateur','vehicule.utilisateur','=','utilisateur.id');
         query = query.where({id:authId});
@@ -49,11 +52,14 @@ const deleteVehicule = async (SQLQueryBuilder,{immatriculation,authId})=>{
     return nbLigneSupp;
 }
 
-const getVehiculeFilter = async (SQLQueryBuilder,{utilisateurId,nbPlaceMax,immatriculation,offset=0,limit=100,fields='*'}) =>{
+const getVehiculeFilter = async (SQLQueryBuilder,{utilisateurId,nbPlaceMax,vehiculeId,immatriculation,offset=0,limit=100,fields='*'}) =>{
     let query = SQLQueryBuilder.select(extractFields(fields))
     .from('vehicule')
     .offset(offset)
     .limit(limit);
+    if(vehiculeId){
+        query = query.where({vehicule_id:vehiculeId});
+    }
     if(utilisateurId){
         query = query.where({utilisateur:utilisateurId});
     }

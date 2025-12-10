@@ -13,11 +13,11 @@ INSERT INTO vehicule (immatriculation, nb_places_maximum, utilisateur) VALUES
 ('1-MNO-654', 2, 5);
 
 INSERT INTO trajet (date_depart, date_arrivee, addresse_depart, addresse_arrivee, coordonnee_depart, coordonnee_arrivee, vehicule) VALUES
-('2026-11-05 08:00:00', '2026-11-05 09:15:00', 'Bruxelles, Place de Brouckère', 'Liège, Gare de Liège-Guillemins', POINT(50.8503, 4.3517), POINT(50.6292, 5.5797), '1-ABC-123'),
-('2026-11-06 07:30:00', '2026-11-06 08:45:00', 'Namur, Namur Centre', 'Bruxelles, Place du Luxembourg', POINT(50.4669, 4.8675), POINT(50.8371, 4.3676), '2-DEF-456'),
-('2026-11-07 09:00:00', '2026-11-07 10:30:00', 'Mons, Mons Grand Place', 'Ottignies, Louvain-la-Neuve Gare', POINT(50.4541, 3.9567), POINT(50.6683, 4.6117), '1-GHI-789'),
-('2026-11-05 18:00:00', '2026-11-05 19:15:00', 'Charleroi, Charleroi Sud', 'Namur, Namur Station', POINT(50.4114, 4.4445), POINT(50.4669, 4.8675), '2-JKL-321'),
-('2026-11-08 06:45:00', '2026-11-08 08:15:00', 'Brugge, Bruges Centre', 'Gent, Gand Saint-Pierre', POINT(51.2093, 3.2247), POINT(51.0358, 3.7103), '1-MNO-654');
+('2026-11-05 08:00:00', '2026-11-05 09:15:00', 'Bruxelles, Place de Brouckère', 'Liège, Gare de Liège-Guillemins', POINT(50.8503, 4.3517), POINT(50.6292, 5.5797), 1),
+('2026-11-06 07:30:00', '2026-11-06 08:45:00', 'Namur, Namur Centre', 'Bruxelles, Place du Luxembourg', POINT(50.4669, 4.8675), POINT(50.8371, 4.3676), 2),
+('2026-11-07 09:00:00', '2026-11-07 10:30:00', 'Mons, Mons Grand Place', 'Ottignies, Louvain-la-Neuve Gare', POINT(50.4541, 3.9567), POINT(50.6683, 4.6117), 3),
+('2026-11-05 18:00:00', '2026-11-05 19:15:00', 'Charleroi, Charleroi Sud', 'Namur, Namur Station', POINT(50.4114, 4.4445), POINT(50.4669, 4.8675), 4),
+('2026-11-08 06:45:00', '2026-11-08 08:15:00', 'Brugge, Bruges Centre', 'Gent, Gand Saint-Pierre', POINT(51.2093, 3.2247), POINT(51.0358, 3.7103), 5);
 
 INSERT INTO demande (date_depart, date_arrivee, addresse_depart, addresse_arrivee, coordonnee_depart, coordonnee_arrivee, demandeur) VALUES
 ('2026-11-05 07:45:00', '2026-11-05 09:30:00', 'Bruxelles, Place Flagey', 'Liège, Gare de Liège-Guillemins', POINT(50.8261, 4.3737), POINT(50.6292, 5.5797), 2),

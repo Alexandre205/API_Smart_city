@@ -8,16 +8,18 @@ const creationSchema = vine.object({
 });
 
 const updateSchema = vine.object({
-    immatriculation: vine.string(),
+    vehiculeId:vine.number(),
+    immatriculation: vine.string().optional(),
     nbPlaceMax: vine.number().positive().optional(),
     utilisateurId: vine.number().optional()
 });
 
-const immatriculationSchema = vine.object({
-    immatriculation: vine.string(),
+const idSchema = vine.object({
+    id: vine.number(),
 });
 
 const optionalSchema = vine.object({
+    vehicule_id:vine.number().optional(),
     immatriculation: vine.string().optional(),
     nbPlaceMax: vine.number().positive().optional(),
     utilisateurId: vine.number().optional(),
@@ -26,8 +28,8 @@ const optionalSchema = vine.object({
 export const
     creationValidator = vine.compile(creationSchema),
     updateValidator = vine.compile(updateSchema),
-    readValidator = vine.compile(immatriculationSchema),
-    deleteValidator = vine.compile(immatriculationSchema),
+    readValidator = vine.compile(idSchema),
+    deleteValidator = vine.compile(idSchema),
     searchValidator = vine.compile(vine.object({
         ...optionalSchema.getProperties(),
         ...searchParameterSchema.getProperties()
