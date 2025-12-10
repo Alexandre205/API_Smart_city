@@ -52,24 +52,27 @@ const deleteVehicule = async (SQLQueryBuilder,{id,authId})=>{
     return nbLigneSupp;
 }
 
-const getVehiculeFilter = async (SQLQueryBuilder,{utilisateurId,nbPlaceMax,vehiculeId,immatriculation,offset=0,limit=100,fields='*'}) =>{
-    let query = SQLQueryBuilder.select(extractFields(fields))
-    .from('vehicule')
-    .offset(offset)
-    .limit(limit);
+const getVehiculeFilter = async (SQLQueryBuilder,{utilisateurId,nbPlaceMax,vehiculeId,immatriculation,offset=0,limit=100,fields='*',withCount = false}) =>{
+    let baseQuery = SQLQueryBuilder('vehicule');
     if(vehiculeId){
-        query = query.where({vehicule_id:vehiculeId});
+        baseQuery = baseQuery.where({vehicule_id:vehiculeId});
     }
     if(utilisateurId){
-        query = query.where({utilisateur:utilisateurId});
+        baseQuery = baseQuery.where({utilisateur:utilisateurId});
     }
     if(nbPlaceMax){
-        query = query.where({nb_places_maximum:nbPlaceMax});
+        baseQuery = baseQuery.where({nb_places_maximum:nbPlaceMax});
     }
     if(immatriculation){
-        query = query.where('immatriculation','ilike',immatriculation+'%');
+        baseQuery = baseQuery.where('immatriculation','ilike',immatriculation+'%');
     }
-    return await query;
+    const data = await baseQuery.clone().select(extractFields(fields)).offset(offset).limit(limit);
+    if(withCount){
+        const count = await baseQuery.clone().count('* as total');
+        const total = parseInt(count[0].total);
+        return {data,total};
+    }
+    return data;
 }
 
 

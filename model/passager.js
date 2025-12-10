@@ -41,21 +41,24 @@ const deletePassager = async(SQLQueryBuilder,{id,authId})=>{
     return nbLigneSupp;
 }
 
-const getPassagerFiltrer = async (SQLQueryBuilder,{passagerId,trajetId,utilisateurId,offset=0,limit=100,fields='*'})=>{
-    let query = SQLQueryBuilder.select(extractFields(fields))
-    .from('passager')
-    .offset(offset)
-    .limit(limit);
+const getPassagerFiltrer = async (SQLQueryBuilder,{passagerId,trajetId,utilisateurId,offset=0,limit=100,fields='*',withCount=false})=>{
+    let baseQuery = SQLQueryBuilder('passager');
     if(passagerId){
-        query = query.where({passager_id:passagerId});
+        baseQuery = baseQuery.where({passager_id:passagerId});
     }
     if(trajetId){
-        query = query.where({trajet:trajetId});
+        baseQuery = baseQuery.where({trajet:trajetId});
     }
     if(utilisateurId){
-        query = query.where({utilisateur_id:utilisateurId});
+        baseQuery = baseQuery.where({utilisateur_id:utilisateurId});
     }
-    return await query;
+    const data = await baseQuery.clone().select(extractFields(fields)).offset(offset).limit(limit);
+    if(withCount){
+        const count = await baseQuery.clone().count('* as total');
+        const total = parseInt(count[0].total);
+        return {data,total};
+    }
+    return data;
 }
 
 export {createPassager,readPassager,updatePassager,deletePassager,getPassagerFiltrer};

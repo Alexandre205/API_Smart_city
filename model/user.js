@@ -1,7 +1,6 @@
 import * as argon2 from "argon2";
 import { extractFields } from "../utils/convertData.js";
-import {avatarValidation} from "../controller/avatarManager.js";
-import upload from "pg/lib/result";
+
 
 export const addUser = async function(queryBuilder,{nom,prenom,mail,telephone,motDePasse}){
     const user = await queryBuilder('utilisateur')
@@ -53,7 +52,7 @@ export const deleteUser = async function(queryBuilder,{utilisateurId,authId}){
     return await query.del();
 }
 
-export const getUserFiltrer = async (SQLQueryBuilder,{utilisateurId,nom,prenom,mail,telephone,offset=0,limit=100,fields='id,nom,prenom,email,telephone,mot_de_passe',authId})=>{
+export const getUserFiltrer = async (SQLQueryBuilder,{utilisateurId,nom,prenom,mail,telephone,offset=0,limit=100,fields='id,nom,prenom,email,telephone,mot_de_passe',withCount=false,authId})=>{
     let arrFields = extractFields(fields);
     if(authId){
         arrFields = arrFields.filter(val=>(val!=='email' && val!=='mot_de_passe'));
@@ -62,24 +61,27 @@ export const getUserFiltrer = async (SQLQueryBuilder,{utilisateurId,nom,prenom,m
     if(arrFields.length === 0){
         throw new Error('La propriété fields est vide');
     }
-    let query = SQLQueryBuilder.select(arrFields)
-    .from('utilisateur')
-    .offset(offset)
-    .limit(limit);
+    let baseQuery = SQLQueryBuilder('utilisateur');
     if(utilisateurId){
-        query = query.where({id:utilisateurId});
+        baseQuery = baseQuery.where({id:utilisateurId});
     }
     if(nom){
-        query = query.where('nom','ilike',nom+'%');
+        baseQuery = baseQuery.where('nom','ilike',nom+'%');
     }
     if(prenom){
-        query = query.where('prenom','ilike',prenom+'%');
+        baseQuery = baseQuery.where('prenom','ilike',prenom+'%');
     }
     if(mail){
-        query = query.where('email','ilike',mail+'%');
+        baseQuery = baseQuery.where('email','ilike',mail+'%');
     }
     if(telephone){
-        query = query.where('telephone','ilike',telephone+'%');
+        baseQuery = baseQuery.where('telephone','ilike',telephone+'%');
     }
-    return await query;
+    const data = await baseQuery.clone().select(arrFields).offset(offset).limit(limit);
+    if(withCount){
+        const count = await baseQuery.clone().count('* as total');
+        const total = parseInt(count[0].total);
+        return {data,total};
+    }
+    return data;
 }

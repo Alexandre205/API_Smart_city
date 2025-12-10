@@ -64,38 +64,42 @@ const deleteDemande = async (SQLQueryBuilder,{id,authId})=>{
     return nbLigneSupp;
 }
 
-const getDemandeFiltrerasync = async (SQLQueryBuilder,{demandeId,utilisateurId,dateDepart,dateArrivee,coordonneeDepart,coordonneeArrivee,addresseDepart,addresseArrivee,offset=0,limit=100,fields='*'})=>{
-    let query = SQLQueryBuilder.select(extractFields(fields))
-    .from('demande')
-    .offset(offset)
-    .limit(limit);
+const getDemandeFiltrerasync = async (SQLQueryBuilder,{demandeId,utilisateurId,dateDepart,dateArrivee,coordonneeDepart,coordonneeArrivee,addresseDepart,addresseArrivee,offset=0,limit=100,fields='*',withCount=false})=>{
+    let baseQuery = SQLQueryBuilder('demande');
     if(demandeId){
-        query = query.where({demande_id:demandeId});
+        baseQuery = baseQuery.where({demande_id:demandeId});
     }
     if(utilisateurId){
-        query = query.where({demandeur:utilisateurId});
+        baseQuery = baseQuery.where({demandeur:utilisateurId});
     }
     if(addresseArrivee){
-        query = query.where('addresse_arrivee','ilike',addresseArrivee+'%');
+        baseQuery = baseQuery.where('addresse_arrivee','ilike',addresseArrivee+'%');
     }
     if(addresseDepart){
-        query = query.where('addresse_depart','ilike',addresseDepart+'%');
+        baseQuery = baseQuery.where('addresse_depart','ilike',addresseDepart+'%');
     }
+    let dataQuery = baseQuery.clone(); //Sinon le order by bloque car il attent un group by
     if(coordonneeDepart){
         const {x,y} = extractXAndY(coordonneeDepart);
-        query = query.orderByRaw('POINT(?,?) <-> coordonnee_depart',[x,y]);
+        dataQuery = dataQuery.orderByRaw('POINT(?,?) <-> coordonnee_depart',[x,y]);
     }
     if(coordonneeArrivee){
         const {x,y} = extractXAndY(coordonneeArrivee);
-        query = query.orderByRaw('POINT(?,?) <-> coordonnee_arrivee',[x,y]);
+        dataQuery = dataQuery.orderByRaw('POINT(?,?) <-> coordonnee_arrivee',[x,y]);
     }
     if(dateDepart){
-        query = query.orderByRaw('ABS(EXTRACT(EPOCH FROM date_depart - ?))',[dateDepart]);
+        dataQuery = dataQuery.orderByRaw('ABS(EXTRACT(EPOCH FROM date_depart - ?))',[dateDepart]);
     }
     if(dateArrivee){
-        query = query.orderByRaw('ABS(EXTRACT(EPOCH FROM date_arrivee - ?))',[dateArrivee]);
+        dataQuery = dataQuery.orderByRaw('ABS(EXTRACT(EPOCH FROM date_arrivee - ?))',[dateArrivee]);
     }
-    return await query;
+    const data = await dataQuery.clone().select(extractFields(fields)).offset(offset).limit(limit);
+    if(withCount){
+        const count = await baseQuery.clone().count('* as total');
+        const total = parseInt(count[0].total);
+        return {data,total};
+    }
+    return data;
 }
 
 export {createDemande,readDemande,updateDemande,deleteDemande,getDemandeFiltrerasync};
