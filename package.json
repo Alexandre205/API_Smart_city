@@ -9,7 +9,7 @@
     "initDB": "node scripts/JS/initDB.js",
     "startDocker": "docker run --env-file .env -d --name Covoiturage -p 5432:5432 --rm -d postgres",
     "stopDocker": "docker stop Covoiturage",
-    "startRedis": "docker run -p 6379:6379 redis"
+    "startRedis": "docker run -p 6379:6379 -d redis"
   },
   "repository": {
     "type": "git",

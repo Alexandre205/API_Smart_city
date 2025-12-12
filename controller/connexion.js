@@ -61,7 +61,6 @@ export const logout = async (req,res) => {
     }
 
     return res.status(200).json({ message: "Logout effectué" });
-
 }
 
 export const refresh = async (req, res) => {

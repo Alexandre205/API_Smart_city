@@ -1,5 +1,6 @@
 import * as modelUser from '../model/user.js';
 import {dbPool} from '../database/database.js';
+import {isAdmin,isValidId} from '../middleware/Authorization/authorization.js'
 
 
 export const addUser = async function(req,res){
@@ -55,6 +56,7 @@ export const deleteUser = async function(req,res){
         res.sendStatus(204);
     }catch(error){
         console.log(error);
+
         res.sendStatus(500);
     }
 }

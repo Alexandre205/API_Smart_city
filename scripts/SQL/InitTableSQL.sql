@@ -31,6 +31,7 @@ CREATE TABLE vehicule(
 ALTER SEQUENCE vehicule_id_seq OWNED BY vehicule.vehicule_id;
 
 
+
 DROP TABLE IF EXISTS trajet CASCADE ;
 DROP SEQUENCE IF EXISTS trajet_id_seq ;
 CREATE SEQUENCE trajet_id_seq START 1 INCREMENT 1;
@@ -43,6 +44,7 @@ CREATE TABLE trajet (
     coordonnee_depart POINT NOT NULL,
     coordonnee_arrivee POINT NOT NULL,
     vehicule INTEGER NOT NULL REFERENCES vehicule(vehicule_id) ON DELETE CASCADE 
+
 );
 ALTER SEQUENCE trajet_id_seq OWNED BY trajet.trajet_id;
 
@@ -65,6 +67,7 @@ CREATE TABLE demande (
 ALTER SEQUENCE demande_id_seq OWNED BY demande.demande_id;
 
 
+
 DROP TABLE IF EXISTS passager CASCADE;
 DROP SEQUENCE IF EXISTS passager_id_seq;
 CREATE SEQUENCE passager_id_seq START 1 INCREMENT 1;
@@ -72,5 +75,6 @@ CREATE TABLE passager (
     passager_id INTEGER PRIMARY KEY DEFAULT NEXTVAL('passager_id_seq'),
     trajet INTEGER NOT NULL REFERENCES trajet(trajet_id) ON DELETE CASCADE,
     utilisateur_id INTEGER NOT NULL REFERENCES utilisateur(id) ON DELETE CASCADE
+
 );
 ALTER SEQUENCE passager_id_seq OWNED BY passager.passager_id;

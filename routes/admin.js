@@ -34,4 +34,5 @@ routerAdmin.delete('/vehicule/:immatriculation',checkJWT,isAdmin,vehiculeValidat
 routerAdmin.post('/vehicule',checkJWT,isAdmin,vehiculeValidation.validateVehiculeCreate,vehiculeController.addVehicule);
 routerAdmin.patch('/vehicule',checkJWT,isAdmin,vehiculeValidation.validateVehicleUpdate,vehiculeController.updateVehicule);
 
+
 export default routerAdmin;

@@ -14,6 +14,7 @@ export const validateUserUpdate = async(req,res,next) =>{
     try {
         const val = await userValidator.updateValidator.validate(req.body);
         req.val = {...req.val,...val};
+
         next();
     }catch(error){
         res.status(400).json({ errors: error.messages });

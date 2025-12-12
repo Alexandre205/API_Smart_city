@@ -28,6 +28,7 @@ const readTrajet = async (SQLQueryBuilder,{id})=>{
     return data[0];
 }
 
+
 const updateTrajet = async (SQLQueryBuilder,{trajetId,dateDepart,dateArrivee,vehivuleId,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
     if(authId){
         const vehic = await readVehicule(SQLQueryBuilder,{immatriculation:vehicule});
@@ -35,6 +36,7 @@ const updateTrajet = async (SQLQueryBuilder,{trajetId,dateDepart,dateArrivee,veh
             throw new Error("Immatriculation non valide");
         }
     }
+
     const dataToUpdate = {};
     if(dateDepart){
         dataToUpdate.date_depart = dateDepart;

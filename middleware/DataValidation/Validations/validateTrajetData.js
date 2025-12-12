@@ -3,6 +3,7 @@ import * as trajetValidator from '../Schemas/trajetSchema.js';
 
 export const validateTrajetCreate = async(req,res,next) =>{
     try {
+
         const val = await trajetValidator.creationValidator.validate(req.body);
         req.val = {...req.val,...val};
         next();

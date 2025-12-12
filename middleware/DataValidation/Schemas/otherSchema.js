@@ -5,4 +5,5 @@ export const searchParameterSchema = vine.object({
     limit: vine.number().min(0).optional(),
     fields:vine.string().optional(),
     withCount:vine.boolean().optional()
+
 });

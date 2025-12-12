@@ -26,6 +26,7 @@ INSERT INTO demande (date_depart, date_arrivee, addresse_depart, addresse_arrive
 ('2026-11-05 17:45:00', '2026-11-05 19:30:00', 'Charleroi, Charleroi Sud', 'Namur, Namur Station', POINT(50.4114, 4.4445), POINT(50.4669, 4.8675), 5),
 ('2026-11-08 06:30:00', '2026-11-08 08:30:00', 'Brugge, Bruges Centre', 'Gent, Gand Saint-Pierre', POINT(51.2093, 3.2247), POINT(51.0358, 3.7103), 1);
 
+
 INSERT INTO passager (trajet, utilisateur_id) VALUES
 (1, 2),
 (1, 3),

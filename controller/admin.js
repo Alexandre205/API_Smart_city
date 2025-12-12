@@ -4,6 +4,7 @@ import {identifyLogin} from "../model/person.js";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import * as modelUser from '../model/user.js';
+ansactions
 
 
 
@@ -29,6 +30,7 @@ export const readUserByID = async function(req,res){
 export const updateUser = async function(req,res){
     try{
         const updatedUserID = await modelUser.updateUser(dbPool,req.val);
+
         res.status(204).json(updatedUserID);
     }catch(error){
         console.log(error);

@@ -4,6 +4,7 @@ export const validateDemandeCreate = async(req,res,next) =>{
     try {
         const val = await demandeValidator.creationValidator.validate(req.body);
         req.val = {...req.val,...val};
+
         next();
     }catch(error){
         console.log(error);
@@ -15,6 +16,7 @@ export const validateDemandeUpdate = async(req,res,next) =>{
     try {
         const val = await demandeValidator.updateValidator.validate(req.body);
         req.val = {...req.val,...val};
+
         next();
     }catch(error){
         console.log(error);

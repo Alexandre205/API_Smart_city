@@ -9,4 +9,5 @@ export const userAuthentification = async(req,res,next)=>{
     }
     console.log(req.session);
     next();
+
 }

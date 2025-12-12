@@ -17,6 +17,7 @@ const readPassager = async(SQLQueryBuilder,{id})=>{
 }
 
 const updatePassager = async(SQLQueryBuilder,{passagerId,trajetId,utilisateurId,authId})=>{
+
     const dataToUpdate = {};
     if(trajetId){
         dataToUpdate.trajet = trajetId;
