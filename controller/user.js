@@ -1,6 +1,5 @@
 import * as modelUser from '../model/user.js';
 import {dbPool} from '../database/database.js';
-import {isAdmin,isValidId} from '../middleware/Authorization/authorization.js'
 
 
 export const addUser = async function(req,res){

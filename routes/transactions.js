@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as transactionController from "../controller/transactions.js"
 import {checkJWT} from "../middleware/Identification/JWT.js";
-
+import {userAuthentification} from '../middleware/Authorization/authorization.js'
 import {validateTrajetAndCar} from "../middleware/DataValidation/Validations/validateTrajetAndCarData.js";
 
 const routerTransaction = Router();
