@@ -9,7 +9,7 @@ const addTrajet = async(req,res)=>{
     }catch(err){
         //envoye erreur en json
         console.error(err);
-        res.sendStatus(500);
+        res.status(500).json(err);
     }
 }
 

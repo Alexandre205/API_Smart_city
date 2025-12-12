@@ -8,7 +8,7 @@ const addDemande = async(req,res)=>{
     }catch(err){
         //expliciter erreur sql
         console.error(err);
-        res.sendStatus(500);
+        res.sendStatus(500).json(err);
     }
 }
 

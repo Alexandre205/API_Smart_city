@@ -1,9 +1,9 @@
 import { Router } from "express";
-import * as passagerController from '../controller/passager.js'
-import * as validation from '../middleware/DataValidation/Validations/validatePassagerData.js'
-import { checkJWT } from "../middleware/Identification/JWT.js";
-import { userAuthentification } from "../middleware/Authorization/authorization.js";
-import {canBePassenger} from "../middleware/Authorization/canBePassenger.js";
+import * as passagerController from '../../controller/passager.js'
+import * as validation from '../../middleware/DataValidation/Validations/validatePassagerData.js'
+import { checkJWT } from "../../middleware/Identification/JWT.js";
+import { userAuthentification } from "../../middleware/Authorization/authorization.js";
+import {canBePassenger} from "../../middleware/Authorization/canBePassenger.js";
 
 
 const routerPassager = Router();

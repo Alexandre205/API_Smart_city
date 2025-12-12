@@ -1,9 +1,7 @@
-import express, {Router} from "express";
-import {checkJWT} from "../middleware/Identification/JWT.js";
-import * as validation from "../middleware/DataValidation/Validations/validateImage.js";
-import routerUtilisateur from "./utilisateur.js";
+import  {Router} from "express";
+import {checkJWT} from "../../middleware/Identification/JWT.js";
 import multer from "multer";
-import {avatarValidation} from "../controller/avatarManager.js";
+import {avatarValidation} from "../../controller/avatarManager.js";
 
 const routerAvatar = Router();
 

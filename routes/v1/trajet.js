@@ -1,9 +1,9 @@
 import { Router } from "express";
-import * as trajetController from '../controller/trajet.js'
-import * as validation from '../middleware/DataValidation/Validations/validateTrajetData.js'
-import {userAuthentification} from '../middleware/Authorization/authorization.js';
+import * as trajetController from '../../controller/trajet.js'
+import * as validation from '../../middleware/DataValidation/Validations/validateTrajetData.js'
+import {userAuthentification} from '../../middleware/Authorization/authorization.js';
 
-import { checkJWT } from "../middleware/Identification/JWT.js";
+import { checkJWT } from "../../middleware/Identification/JWT.js";
 const routerTrajet = Router();
 
 routerTrajet.get('/:id',checkJWT,validation.validateTrajetRead,trajetController.getTrajet);

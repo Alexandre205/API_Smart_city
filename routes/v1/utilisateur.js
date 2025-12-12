@@ -1,8 +1,8 @@
 import { Router } from "express";
-import * as validation from "../middleware/DataValidation/Validations/validateUserData.js";
-import * as utilisateurController from "../controller/user.js";
-import { checkJWT } from "../middleware/Identification/JWT.js";
-import { userAuthentification } from "../middleware/Authorization/authorization.js";
+import * as validation from "../../middleware/DataValidation/Validations/validateUserData.js";
+import * as utilisateurController from "../../controller/user.js";
+import { checkJWT } from "../../middleware/Identification/JWT.js";
+import { userAuthentification } from "../../middleware/Authorization/authorization.js";
 const routerUtilisateur = Router();
 
 

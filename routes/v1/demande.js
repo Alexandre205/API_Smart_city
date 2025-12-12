@@ -1,8 +1,8 @@
 import { Router } from "express";
-import * as demandeController from '../controller/demande.js'
-import * as validation from '../middleware/DataValidation/Validations/validateDemandeData.js'
-import { checkJWT } from "../middleware/Identification/JWT.js";
-import { userAuthentification } from '../middleware/Authorization/authorization.js'
+import * as demandeController from '../../controller/demande.js'
+import * as validation from '../../middleware/DataValidation/Validations/validateDemandeData.js'
+import { checkJWT } from "../../middleware/Identification/JWT.js";
+import { userAuthentification } from '../../middleware/Authorization/authorization.js'
 
 const routerDemande = Router();
 

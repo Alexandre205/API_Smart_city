@@ -90,7 +90,6 @@ export const refresh = async (req, res) => {
             { expiresIn: '10m' }
         );
 
-        console.log("refreshed AAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return res.status(201).send(accessToken);
 
     } catch (err) {

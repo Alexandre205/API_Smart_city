@@ -1,5 +1,5 @@
 import express, {request, response} from "express";
-import {default as Router} from "./routes/index.js";
+import {default as Router} from "./routes/versionIndex.js";
 import cors from 'cors';
 import pkg from 'pg';
 import multer from 'multer';

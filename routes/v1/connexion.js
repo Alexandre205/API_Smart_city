@@ -1,6 +1,6 @@
 import { Router } from "express";
-import * as connexionController from "../controller/connexion.js"
-import * as validation from "../middleware/DataValidation/Validations/validateConnexionData.js";
+import * as connexionController from "../../controller/connexion.js"
+import * as validation from "../../middleware/DataValidation/Validations/validateConnexionData.js";
 
 
 const routerConnexion = Router();
