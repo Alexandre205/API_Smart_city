@@ -2,17 +2,17 @@ import {extractXAndY,extractFields} from '../utils/convertData.js';
 import {readVehicule} from '../model/vehicule.js';
 
 
-const createTrajet = async(SQLQueryBuilder,{dateDepart,dateArrivee,vehicule,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
+const createTrajet = async(SQLQueryBuilder,{dateDepart,dateArrivee,vehiculeId,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
     if(authId){
-        const vehic = await readVehicule(SQLQueryBuilder,{immatriculation:vehicule});
+        const vehic = await readVehicule(SQLQueryBuilder,{vehicule_id:vehiculeId});
         if(vehic?.utilisateur !== authId){
-            throw new Error("Immatriculation non valide");
+            throw new Error("Id vehicule non valide");
         }
     }
     const id = await SQLQueryBuilder('trajet').insert({
         date_depart:dateDepart,
         date_arrivee:dateArrivee,
-        vehicule:vehicule,
+        vehicule:vehiculeId,
         addresse_depart:addresseDepart,
         addresse_arrivee:addresseArrivee,
         coordonnee_depart:coordonneeDepart,
@@ -29,9 +29,9 @@ const readTrajet = async (SQLQueryBuilder,{id})=>{
 }
 
 
-const updateTrajet = async (SQLQueryBuilder,{trajetId,dateDepart,dateArrivee,vehivuleId,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
+const updateTrajet = async (SQLQueryBuilder,{trajetId,dateDepart,dateArrivee,vehiculeId,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
     if(authId){
-        const vehic = await readVehicule(SQLQueryBuilder,{immatriculation:vehicule});
+        const vehic = await readVehicule(SQLQueryBuilder,{vehicule_id:vehiculeId});
         if(vehic?.utilisateur !== authId){
             throw new Error("Immatriculation non valide");
         }
@@ -44,8 +44,8 @@ const updateTrajet = async (SQLQueryBuilder,{trajetId,dateDepart,dateArrivee,veh
     if(dateArrivee){
         dataToUpdate.date_arrivee = dateArrivee;
     }
-    if(vehivuleId){
-        dataToUpdate.vehicule = vehivuleId;
+    if(vehiculeId){
+        dataToUpdate.vehicule = vehiculeId;
     }
     if(addresseDepart){
         dataToUpdate.addresse_depart = addresseDepart;
@@ -76,13 +76,13 @@ const deleteTrajet = async (SQLQueryBuilder,{id,authId})=>{
     return nbLigneSupp;
 }
 
-const getTrajetFiltrer = async (SQLQueryBuilder,{trajetId,vehicule,dateDepart,dateArrivee,coordonneeDepart,coordonneeArrivee,addresseDepart,addresseArrivee,offset=0,limit=100,fields='*',withCount=false})=>{
+const getTrajetFiltrer = async (SQLQueryBuilder,{trajetId,vehiculeId,dateDepart,dateArrivee,coordonneeDepart,coordonneeArrivee,addresseDepart,addresseArrivee,offset=0,limit=100,fields='*',withCount=false})=>{
     let baseQuery = SQLQueryBuilder('trajet');
     if(trajetId){
         baseQuery = baseQuery.where({trajet_id:trajetId});
     }
-    if(vehicule){
-        baseQuery = baseQuery.where('vehicule','ilike',vehicule+'%');
+    if(vehiculeId){
+        baseQuery = baseQuery.where('vehicule','ilike',vehiculeId+'%');
     }
     if(addresseArrivee){
         baseQuery = baseQuery.where('addresse_arrivee','ilike',addresseArrivee+'%');

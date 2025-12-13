@@ -8,7 +8,7 @@ const creationSchema = vine.object({
     coordonneeArrivee:vine.string().coordinates().optional(),
     dateDepart: vine.date().after('today',{compare:'minutes'}),
     dateArrivee: vine.date().afterField('dateDepart',{compare:'minutes'}),
-    vehicule: vine.string()
+    vehiculeId: vine.number()
 });
 
 const updateSchema = vine.object({
@@ -19,7 +19,7 @@ const updateSchema = vine.object({
     coordonneeArrivee:vine.string().coordinates().optional(),
     dateDepart: vine.date().after('today',{compare:'minutes'}).optional(),
     dateArrivee: vine.date().after('today',{compare:'minutes'}).optional(),
-    vehicule: vine.string().optional()
+    vehiculeId: vine.number().optional()
 });
 
 const idSchema = vine.object({
@@ -35,7 +35,7 @@ const optionalSchema = vine.object({
     coordonneeArrivee:vine.string().coordinates().optional(),
     dateDepart: vine.date().optional(),
     dateArrivee: vine.date().optional(),
-    vehicule: vine.string().optional()
+    vehiculeId: vine.number().optional()
 });
 
 export const 
