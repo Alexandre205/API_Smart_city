@@ -18,6 +18,7 @@ export const updateUser = async function(req,res){
         if(updatedUserID){
             res.sendStatus(204);
         }else{
+            console.error("utilisateur introuvable");
             res.sendStatus(404);
         }
     }catch(error){
@@ -32,6 +33,7 @@ export const getUser = async function(req,res){
         if(user){
             res.status(200).json(user);
         }else{
+            console.error("utilisateur introuvable");
             res.sendStatus(404);
         }
     }catch(error){
@@ -42,7 +44,12 @@ export const getUser = async function(req,res){
 export const readUserByEmail = async function(req,res){
     try{
         const user = await modelUser.readUserByMail(dbPool,req.val)
-        res.status(200).json(user);
+        if(user){
+            res.status(200).json(user);
+        }else{
+            console.error("utilisateur introuvable");
+            res.sendStatus(404);
+        }
     }catch(error){
         console.log(error);
         res.sendStatus(500);
@@ -54,8 +61,7 @@ export const deleteUser = async function(req,res){
         await modelUser.deleteUser(dbPool,req.val);
         res.sendStatus(204);
     }catch(error){
-        console.log(error);
-
+        console.error(error);
         res.sendStatus(500);
     }
 }
@@ -67,6 +73,7 @@ export const getUserFiltrer = async(req,res)=>{
         const utilisateurs = await modelUser.getUserFiltrer(dbPool,req.val);
         res.send(utilisateurs);
     }catch(err){
+        console.error(err);
         res.status(500).send(err.message);
     }
 }

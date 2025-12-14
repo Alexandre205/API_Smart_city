@@ -8,7 +8,7 @@ import routerConnexion from './connexion.js';
 import routerTransaction from './transactions.js'
 
 import routerAdmin from "./admin.js";
-import routerAvatar from"./avatar.js";
+import routerAvatar from "./avatar.js";
 const router = Router();
 
 router.use(express.static('./upload'));
@@ -25,9 +25,6 @@ router.use('/transaction',routerTransaction);
 
 
 
-router.use((req, res) => {
-    console.error(`Bad URL: ${req.path}`);
-    return res.status(404).send("There is no path");
-});
 
-export default router;
+
+export { router };

@@ -14,6 +14,7 @@ export const validateUserEdition = async(req,res,next) =>{
         req.val = await adminEditionValidator.validate(req.body);
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }

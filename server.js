@@ -1,9 +1,7 @@
 import express, {request, response} from "express";
-import {default as Router} from "./routes/index.js";
+import {default as Router} from "./routes/versionIndex.js";
 import cors from 'cors';
 import pkg from 'pg';
-import multer from 'multer';
-import {avatarValidation} from "./controller/avatarManager.js";
 import cookieParser from 'cookie-parser';
 
 
@@ -27,14 +25,6 @@ app.use(cookieParser());
 
 app.use(express.json());
 
-app.use((request, response, next) => {
-   console.log(request.method, request.host, request.path);
-   next();
-});
-
-app.get('/', (req, res) => {
-    res.send('Ceci est un accueil');
-});
 
 app.use(Router);
 

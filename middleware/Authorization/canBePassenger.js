@@ -28,6 +28,7 @@ export const canBePassenger = async function (req, res, next) {
         }
 
     }catch(e){
-        return res.send(e);
+        console.error(e);
+        res.status(500).send(e.message);
     }
 };

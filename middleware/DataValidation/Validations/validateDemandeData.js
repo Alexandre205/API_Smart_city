@@ -7,7 +7,7 @@ export const validateDemandeCreate = async(req,res,next) =>{
 
         next();
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -19,7 +19,7 @@ export const validateDemandeUpdate = async(req,res,next) =>{
 
         next();
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -30,7 +30,7 @@ export const validateDemandeRead = async(req,res,next) =>{
         req.val = await demandeValidator.readValidator.validate(req.params);
         next();
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -41,7 +41,7 @@ export const validateDemandeDelete = async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -51,7 +51,7 @@ export const validateDemandeSearch = async(req,res,next)=>{
         req.val = await demandeValidator.searchDataValidator.validate(req.query);
         next();
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }

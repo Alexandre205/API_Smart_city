@@ -7,7 +7,6 @@ const addVehicule = async (req,res)=>{
         const id = await vehiculeModel.createVehicule(dbPool,req.val);
         res.status(201).json(id);
     }catch(err){
-        //faire un truc pour expliciter les erreurs sql
         console.error(err);
         res.sendStatus(500);
     }
@@ -19,6 +18,7 @@ const getVehicule = async (req,res)=>{
         if(vehicule){
             res.send(vehicule);
         }else{
+            console.error("véhicule introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -33,6 +33,7 @@ const updateVehicule = async (req,res)=>{
         if(clePrimaire){
            res.sendStatus(204);
         }else{
+            console.error("véhicule introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -47,6 +48,7 @@ const deleteVehicule = async (req,res)=>{
         if(nbLigneSupp === 1 ){
             res.sendStatus(204);
         }else{
+            console.error("véhicule introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -60,6 +62,7 @@ const getFilteredVehicule = async (req,res)=>{
         const vehicules = await vehiculeModel.getVehiculeFilter(dbPool,req.val);
         res.send(vehicules);
     }catch(err){
+        console.error(err);
         res.status(500).send(err.message);
     }
 }

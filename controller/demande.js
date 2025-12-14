@@ -6,9 +6,8 @@ const addDemande = async(req,res)=>{
         const id = await demandeModel.createDemande(dbPool,req.val);
         res.status(201).json(id);
     }catch(err){
-        //expliciter erreur sql
         console.error(err);
-        res.sendStatus(500);
+        res.sendStatus(500).json(err);
     }
 }
 
@@ -18,6 +17,7 @@ const getDemande = async(req,res)=>{
         if(demande){
             res.send(demande);
         }else{
+            console.error("demande introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -32,6 +32,7 @@ const updateDemande = async(req,res)=>{
         if(id){
             res.sendStatus(204);
         }else{
+            console.error("demande introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -46,6 +47,7 @@ const deleteDemande = async(req,res)=>{
         if(nbLigneSupp === 1){
             res.sendStatus(204);
         }else{
+            console.error("demande introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -59,6 +61,7 @@ const getDemandeFiltrer = async(req,res)=>{
         const demandes = await demandeModel.getDemandeFiltrerasync(dbPool,req.query);
         res.send(demandes);
     }catch(err){
+        console.error(err);
         res.status(500).send(err.message);
     }
 }

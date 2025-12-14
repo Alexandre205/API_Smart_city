@@ -5,7 +5,7 @@ export const validateUserCreation = async(req,res,next) =>{
         req.val = await userValidator.creationValidator.validate(req.body);
         next();
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -17,6 +17,7 @@ export const validateUserUpdate = async(req,res,next) =>{
 
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -26,6 +27,7 @@ export const validateUserRead= async(req,res,next) =>{
         req.val = await userValidator.readValidator.validate(req.params);
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -36,6 +38,7 @@ export const validateUserDelete= async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -45,6 +48,7 @@ export const validateUserLogin= async(req,res,next) =>{
         req.val = await userValidator.loginValidator.validate(req.body);
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -56,6 +60,7 @@ export const validateUserSearch = async(req,res,next)=>{
         console.log(req.val);
         next();
     }catch(err){
+        console.error(err);
         res.status(400).json({errors:err.messages});
     }
 }

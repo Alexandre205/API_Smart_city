@@ -1,17 +1,17 @@
 import { Router } from "express";
-import * as userValidation from "../middleware/DataValidation/Validations/validateUserData.js";
-import * as userController from '../controller/user.js';
-import * as demandeValidation from '../middleware/DataValidation/Validations/validateDemandeData.js';
-import * as demandeController from '../controller/demande.js';
-import * as passagerValidation from '../middleware/DataValidation/Validations/validatePassagerData.js';
-import * as passagerController from '../controller/passager.js';
-import * as trajetValidation from '../middleware/DataValidation/Validations/validateTrajetData.js';
-import * as trajetController from '../controller/trajet.js';
-import * as vehiculeValidation from '../middleware/DataValidation/Validations/validateVehicleData.js';
-import * as vehiculeController from '../controller/vehicule.js';
+import * as userValidation from "../../middleware/DataValidation/Validations/validateUserData.js";
+import * as userController from '../../controller/user.js';
+import * as demandeValidation from '../../middleware/DataValidation/Validations/validateDemandeData.js';
+import * as demandeController from '../../controller/demande.js';
+import * as passagerValidation from '../../middleware/DataValidation/Validations/validatePassagerData.js';
+import * as passagerController from '../../controller/passager.js';
+import * as trajetValidation from '../../middleware/DataValidation/Validations/validateTrajetData.js';
+import * as trajetController from '../../controller/trajet.js';
+import * as vehiculeValidation from '../../middleware/DataValidation/Validations/validateVehicleData.js';
+import * as vehiculeController from '../../controller/vehicule.js';
 
-import {checkJWT} from "../middleware/Identification/JWT.js"
-import {isAdmin} from "../middleware/Authorization/isAdmin.js"
+import {checkJWT} from "../../middleware/Identification/JWT.js"
+import {isAdmin} from "../../middleware/Authorization/isAdmin.js"
 const routerAdmin = Router();
 
 routerAdmin.delete('/utilisateur/:utilisateurId',checkJWT,isAdmin,userValidation.validateUserDelete,userController.deleteUser);

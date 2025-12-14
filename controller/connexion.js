@@ -14,7 +14,7 @@ export const login = async (req,res) => {
             if(person.status === 'utilisateur' || person.status === 'admin'){
                 expiringTime = "10m";
             }else{
-                return res.status(500);
+                res.status(500);
             }
 
             const accessToken = jwt.sign({ id: person.id, status: person.status, jti: uuid.v4() }, process.env.JWT_TOKEN, { expiresIn: expiringTime });
@@ -24,16 +24,17 @@ export const login = async (req,res) => {
             const platform = req.headers['platform-type'];
 
             if(platform === "mobile"){
-                return res.status(201).send({accessToken,refreshToken})
+                res.status(201).send({accessToken,refreshToken})
             }else {
                 res.cookie("refresh_token", refreshToken, {path: "/" ,secure: false, httpOnly:true,sameSite: "lax",maxAge: 24 * 60 * 60 * 1000});
-                return res.status(201).send(accessToken);
+                res.status(201).send(accessToken);
             }
         }else{
-            return res.status(404).json({error:"Pas de compte lié à ces identifiant"});
+            res.status(404).json({error:"Pas de compte lié à ces identifiant"});
         }
     }catch(err){
-        return res.status(500).send(err.message);
+        console.error(err);
+        res.status(500).send(err.message);
     }
 }
 
@@ -44,13 +45,13 @@ export const logout = async (req,res) => {
         const token = platform === "mobile" ? req.headers['authorization']?.split(' ')[1] : req.cookies["refresh_token"];
 
         if (!token){
-            return res.status(401).json({ message: "Pas de token fourni" });
+            res.status(401).json({ message: "Pas de token fourni" });
         }
 
         decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
     } catch (err) {
         console.error("Token invalide :", err.message);
-        return res.status(401).json({ message: "Token invalide ou expiré" });
+        res.status(401).json({ message: "Token invalide ou expiré" });
     }
 
     const tokenId = decodedToken.jti;
@@ -59,8 +60,7 @@ export const logout = async (req,res) => {
     if(platform !== "mobile") {
         res.cookie("refresh_token", "", { path: "/" ,secure: false,httpOnly:true, sameSite: "lax", expires: new Date(0) });
     }
-
-    return res.status(200).json({ message: "Logout effectué" });
+    res.status(200).json({ message: "Logout effectué" });
 }
 
 export const refresh = async (req, res) => {
@@ -68,7 +68,7 @@ export const refresh = async (req, res) => {
     const refreshToken = platform === "mobile" ? req.body.refreshToken : req.cookies["refresh_token"];
 
     if (!refreshToken) {
-        return res.status(406).json({ message: 'pas de refresh token' });
+        res.status(406).json({ message: 'pas de refresh token' });
     }
 
     try {
@@ -76,7 +76,7 @@ export const refresh = async (req, res) => {
 
         const isBlacklisted = await redisClient.get(decoded.jti);
         if (isBlacklisted) {
-            return res.status(400).json({ message: 'Token is blacklisted' });
+            res.status(400).json({ message: 'Token is blacklisted' });
         }
 
         const accessToken = jwt.sign(
@@ -88,12 +88,11 @@ export const refresh = async (req, res) => {
             process.env.JWT_TOKEN,
             { expiresIn: '10m' }
         );
-
-        console.log("refreshed AAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return res.status(201).send(accessToken);
+        res.status(201).send(accessToken);
 
     } catch (err) {
-        return res.status(406).json({ message: 'refresh token invalide' });
+        console.error(err);
+       res.status(406).json({ message: 'refresh token invalide' });
     }
 };
 

@@ -16,11 +16,12 @@ export const checkJWT = async function (req, res, next){
             }
             
             next();
-        }catch{
-            return res.sendStatus(401);
+        }catch(error){
+            console.error(error);
+            return res.status(401).send({message : "Le token JWT ne corresponds pas"});
         }
     }else{
-        return res.sendStatus(401);
+        return res.status(401).send({message : "Pas de token JWT"});
     }
 
 };

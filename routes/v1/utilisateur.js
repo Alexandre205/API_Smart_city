@@ -3,7 +3,6 @@ import * as validation from "../middleware/DataValidation/Validations/validateUs
 import * as utilisateurController from "../controller/user.js";
 import { checkJWT } from "../middleware/Identification/JWT.js";
 import { userAuthentification } from "../middleware/Authorization/authorization.js";
-
 const routerUtilisateur = Router();
 
 
