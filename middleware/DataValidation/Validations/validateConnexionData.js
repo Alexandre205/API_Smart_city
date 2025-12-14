@@ -5,6 +5,7 @@ export const validateLogin = async (req,res,next)=>{
         req.val = await connexionShema.loginValidator.validate(req.body);
         next();
     }catch(err){
+        console.error(err);
         res.status(400).json({ errors: err.messages });
     }
 }

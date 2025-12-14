@@ -7,7 +7,6 @@ const addTrajet = async(req,res)=>{
         const id = await trajetModel.createTrajet(dbPool,req.val);
         res.status(201).json(id);
     }catch(err){
-        //envoye erreur en json
         console.error(err);
         res.status(500).json(err);
     }
@@ -19,6 +18,7 @@ const getTrajet = async(req,res)=>{
         if(trajet){
             res.send(trajet);
         }else{
+            console.error("trajet introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -33,6 +33,7 @@ const updateTrajet = async(req,res)=>{
         if(id){
             res.sendStatus(204);
         }else{
+            console.error("trajet introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -47,6 +48,7 @@ const deleteTrajet = async(req,res)=>{
         if(nbLigneSupp === 1){
             res.sendStatus(204);
         }else{
+            console.error("trajet introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -60,6 +62,7 @@ const getTrajetFiltrer = async(req,res)=>{
         const trajets = await trajetModel.getTrajetFiltrer(dbPool,req.val);
         res.send(trajets);
     }catch(err){
+        console.error(err);
         res.status(500).send(err.message);
     }
 }

@@ -5,4 +5,8 @@ const router = Router();
 
 router.use("/v1",v1Router);
 
+router.use((req, res) => {
+    console.error(`Bad URL: ${req.path}`);
+    return res.status(404).send("There is no path");
+});
 export default router;

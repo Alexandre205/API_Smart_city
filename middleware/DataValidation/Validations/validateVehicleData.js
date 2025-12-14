@@ -6,6 +6,7 @@ export const validateVehiculeCreate = async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -16,6 +17,7 @@ export const validateVehicleUpdate = async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -25,6 +27,7 @@ export const validateVehiculeRead = async(req,res,next) =>{
         req.val = await vehiculeValidator.readValidator.validate(req.params);
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -35,6 +38,7 @@ export const validateVehiculeDelete = async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -44,6 +48,7 @@ export const validateVehiculeSearch = async(req,res,next)=>{
         req.val = await vehiculeValidator.searchValidator.validate(req.query);
         next();
     }catch(err){
+        console.error(err);
         res.status(400).json({ errors: err.messages });
     }
 }

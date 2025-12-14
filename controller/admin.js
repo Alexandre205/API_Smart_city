@@ -9,7 +9,7 @@ export const registerUser = async function(req,res){
         const createdUserID = await createUser(dbPool,req.val);
         res.status(201).json(createdUserID);
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.sendStatus(500);
     }
 }
@@ -28,7 +28,7 @@ export const updateUser = async function(req,res){
         const updatedUserID = await modelUser.updateUser(dbPool,req.val);
         res.status(204).json(updatedUserID);
     }catch(error){
-        console.log(error);
+        console.error(error);
         res.sendStatus(500);
     }
 }

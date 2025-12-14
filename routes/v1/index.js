@@ -25,9 +25,6 @@ router.use('/transaction',routerTransaction);
 
 
 
-router.use((req, res) => {
-    console.error(`Bad URL: ${req.path}`);
-    return res.status(404).send("There is no path");
-});
+
 
 export { router };

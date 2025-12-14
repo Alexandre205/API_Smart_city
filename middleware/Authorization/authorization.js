@@ -7,6 +7,5 @@ export const userAuthentification = async(req,res,next)=>{
         
         req.val = {authId:req.session.id};
     }
-    console.log(req.session);
     next();
 }

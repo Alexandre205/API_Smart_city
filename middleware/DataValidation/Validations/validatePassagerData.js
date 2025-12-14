@@ -6,6 +6,7 @@ export const validatePassagerCreate = async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -16,6 +17,7 @@ export const validatePassagerUpdate = async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -25,6 +27,7 @@ export const validatePassagerRead = async(req,res,next) =>{
         req.val = await passagerValidator.readValidator.validate(req.params);
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -35,6 +38,7 @@ export const validatePassagerDelete = async(req,res,next) =>{
         req.val = {...req.val,...val};
         next();
     }catch(error){
+        console.error(error);
         res.status(400).json({ errors: error.messages });
     }
 }
@@ -44,6 +48,7 @@ export const validatePassagerSearch = async(req,res,next)=>{
         req.val = await passagerValidator.searchValidator.validate(req.query);
         next();
     }catch(err){
-        res.status(400).json({ errors: error.messages });
+        console.error(err);
+        res.status(400).json({ errors: err.messages });
     }
 }

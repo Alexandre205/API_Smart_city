@@ -6,7 +6,6 @@ const addPassager = async(req,res)=>{
         const id = await passagerModel.createPassager(dbPool,req.val);
         res.status(201).json(id);
     }catch(err){
-        //expliciter erreur sql
         console.error(err);
         res.sendStatus(500);
     }
@@ -18,6 +17,7 @@ const getPassager = async(req,res)=>{
         if(passager){
             res.send(passager);
         }else{
+            console.error("passager introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -32,6 +32,7 @@ const updatePassager = async(req,res)=>{
         if(id){
             res.sendStatus(204);
         }else{
+            console.error("passager introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -46,6 +47,7 @@ const deletePassager = async(req,res)=>{
         if(nbLigneSupp === 1){
             res.sendStatus(204);
         }else{
+            console.error("passager introuvable");
             res.sendStatus(404);
         }
     }catch(err){
@@ -59,6 +61,7 @@ const getPassagerFiltrer = async (req,res)=>{
         const passagers = await passagerModel.getPassagerFiltrer(dbPool,req.query);
         res.send(passagers);
     }catch(err){
+        console.error(err);
         res.status(500).send(err.message);
     }
 }
