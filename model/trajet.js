@@ -1,5 +1,5 @@
 import {extractXAndY,extractFields} from '../utils/convertData.js';
-import {readVehicule} from '../model/vehicule.js';
+import {readVehicule} from './vehicule.js';
 
 
 const createTrajet = async(SQLQueryBuilder,{dateDepart,dateArrivee,vehiculeId,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
