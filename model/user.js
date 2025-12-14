@@ -55,7 +55,6 @@ export const getUserFiltrer = async (SQLQueryBuilder,{utilisateurId,nom,prenom,m
     let arrFields = extractFields(fields);
     if(authId){
         arrFields = arrFields.filter(val=>(val!=='email' && val!=='mot_de_passe'));
-        console.log(arrFields);
     }
     if(arrFields.length === 0){
         throw new Error('La propriété fields est vide');

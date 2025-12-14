@@ -14,7 +14,7 @@ export const login = async (req,res) => {
             if(person.status === 'utilisateur' || person.status === 'admin'){
                 expiringTime = "10m";
             }else{
-                res.status(500);
+                res.status(404).send({message : "Login invalide"});
             }
 
             const accessToken = jwt.sign({ id: person.id, status: person.status, jti: uuid.v4() }, process.env.JWT_TOKEN, { expiresIn: expiringTime });
