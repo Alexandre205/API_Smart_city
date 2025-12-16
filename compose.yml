@@ -1,50 +1,3 @@
-# services:
-
-#   postgres:
-#     build: .
-#     image: postgres:16
-#     container_name: smart_city_postgres
-#     env_file:
-#       - .env
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-
-#   redis:
-#     image: redis:7
-#     container_name: smart_city_redis
-#     ports:
-#       - "6379:6379"
-
-#   init-db:
-#     build: .
-#     container_name: smart_city_init_db
-#     command: scripts/JS/initDB.js
-#     env_file:
-#       - .env
-#     depends_on:
-#       - postgres
-#     restart: "no"
-  
-#   api:
-#     build: .
-#     container_name: smart_city_api
-#     command: npm run dev
-#     ports:
-#       - "3001:3001"
-#     env_file:
-#       - .env
-#     volumes:
-#       - .:/app
-#     depends_on:
-#       - postgres
-#       - redis
-#       - init-db
-# volumes:
-#   postgres_data:
-
-
 services:
   postgres_database:
     build: 
@@ -58,17 +11,19 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
       interval: 10s
       timeout: 3s
       retries: 3
     volumes:
-      - db:/var/lib/postgresql
+      - db_data:/var/lib/postgresql/data
   redis:
-    image: redis:7
+    image: redis:7.4-alpine
     container_name: smart_city_redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis_cache:/data
 
   api:
     build:
@@ -80,7 +35,7 @@ services:
     env_file:
     - .env
     environment:
-      DB_HOST: postgres_database
+      DB_HOST: postgres_database #ecrase le host du .env
     depends_on:
       postgres_database:
         condition: service_healthy
@@ -89,4 +44,5 @@ services:
     
         
 volumes:
-  db:
+  db_data:
+  redis_cache:

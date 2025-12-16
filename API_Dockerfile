@@ -9,4 +9,6 @@ COPY . .
 
 EXPOSE 3001
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
+
+#on copie les packages avant le reste pour limiter le nombre de layers à reconstruire apres la modification du code
