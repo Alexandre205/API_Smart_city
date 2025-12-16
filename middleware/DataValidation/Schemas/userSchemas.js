@@ -6,7 +6,7 @@ const creationSchema = vine.object({
     prenom: vine.string(),
     mail: vine.string().email(),
     telephone: vine.string(),
-    motDePasse: vine.string(),
+    motDePasse: vine.string().optional(),
 });
 
 const idSchema = vine.object({

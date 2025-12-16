@@ -1,7 +1,9 @@
 import * as argon2 from "argon2";
 import { extractFields } from "../utils/convertData.js";
 
-export const addUser = async function(queryBuilder,{nom,prenom,mail,telephone,motDePasse}){
+
+//Si un admin crée un user il aurait un mot de passe par defaut
+export const addUser = async function(queryBuilder,{nom,prenom,mail,telephone,motDePasse='default'}){
     const user = await queryBuilder('utilisateur')
         .insert({nom : nom,prenom : prenom,email : mail,telephone : telephone,mot_de_passe : await argon2.hash(motDePasse,{secret : Buffer.from(process.env.PEPPER)})})
         .returning('id');
