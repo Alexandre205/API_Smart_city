@@ -9,7 +9,8 @@
     "initDB": "node scripts/JS/initDB.js",
     "startDocker": "docker run --env-file .env -d --name Covoiturage -p 5432:5432 --rm -d postgres",
     "stopDocker": "docker stop Covoiturage",
-    "startRedis": "docker run -p 6379:6379 -d redis"
+    "startRedis": "docker run -p 6379:6379 -d redis",
+    "genDoc": "node ./swagger/swagger_jsdoc.js"
   },
   "repository": {
     "type": "git",
@@ -38,10 +39,12 @@
     "pg": "^8.16.3",
     "redis": "^5.10.0",
     "sharp": "^0.34.5",
+    "swagger": "^0.7.5",
     "uuid": "^13.0.0",
     "vine": "^0.1.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "swagger-jsdoc": "^6.2.8"
   }
 }

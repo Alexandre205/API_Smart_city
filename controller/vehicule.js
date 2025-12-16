@@ -1,7 +1,32 @@
 import { dbPool } from "../database/database.js";
 import * as vehiculeModel from "../model/vehicule.js";
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Vehicule:
+ *          type: object
+ *          properties:
+ *              immatriculation:
+ *                  type: string
+ *              nbPlace:
+ *                  type: integer
+ *              utilisateurId:
+ *                  type: integer
+ */
 
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      addVehicule:
+ *          description: add the given vehicule and return his identifiant
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Immatriculation'
+ */
 const addVehicule = async (req,res)=>{
     try{
         const id = await vehiculeModel.createVehicule(dbPool,req.val);
@@ -12,6 +37,20 @@ const addVehicule = async (req,res)=>{
     }
 }
 
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      getVehicule:
+ *          description: get the given vehicule
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          immatriculation:
+ *                              type: string
+ */
 const getVehicule = async (req,res)=>{
     try{
         const vehicule = await vehiculeModel.readVehicule(dbPool,req.val);
@@ -27,6 +66,13 @@ const getVehicule = async (req,res)=>{
     }
 }
 
+/**
+ * @swagger
+ * components:
+ *   responses:
+ *     updateVehicule:
+ *       description: update the given vehicule
+ */
 const updateVehicule = async (req,res)=>{
     try{
         const clePrimaire = await vehiculeModel.updateVehicule(dbPool,req.val);
@@ -42,6 +88,20 @@ const updateVehicule = async (req,res)=>{
     }
 }
 
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      deleteVehicule:
+ *          description: delete the given vehicule
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          immatriculation:
+ *                              type: string
+ */
 const deleteVehicule = async (req,res)=>{
     try{
         const nbLigneSupp = await vehiculeModel.deleteVehicule(dbPool,req.val);
@@ -57,6 +117,17 @@ const deleteVehicule = async (req,res)=>{
     }
 }
 
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      searchVehicule:
+ *          description: search vehicules with the given params
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Vehicule'
+ */
 const getFilteredVehicule = async (req,res)=>{
     try{
         const vehicules = await vehiculeModel.getVehiculeFilter(dbPool,req.val);
