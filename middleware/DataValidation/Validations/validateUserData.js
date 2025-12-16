@@ -57,7 +57,6 @@ export const validateUserSearch = async(req,res,next)=>{
     try{
         const val = await userValidator.searchValidator.validate(req.query);
         req.val = {...req.val,...val};
-        console.log(req.val);
         next();
     }catch(err){
         console.error(err);
