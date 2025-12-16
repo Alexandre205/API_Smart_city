@@ -6,8 +6,6 @@ import routerDemande from './demande.js';
 import routerPassager from './passager.js';
 import routerConnexion from './connexion.js';
 import routerTransaction from './transactions.js'
-
-import routerAdmin from "./admin.js";
 import routerAvatar from "./avatar.js";
 const router = Router();
 
@@ -18,7 +16,6 @@ router.use("/demande",routerDemande);
 router.use("/passager",routerPassager);
 router.use('/utilisateur',routerUtilisateur);
 router.use('/vehicule',routerVehicule);
-router.use('/admin',routerAdmin);
 router.use("/connexion",routerConnexion);
 router.use('/avatar',routerAvatar);
 router.use('/transaction',routerTransaction);
