@@ -1,0 +1,4 @@
+FROM library/postgres:16
+
+COPY /scripts/SQL/initSQL.sql /docker-entrypoint-initdb.d/
+# les scripts déposé dans /docker-entrypoint-initdb.d/ seront lancé au démarage de la bd
