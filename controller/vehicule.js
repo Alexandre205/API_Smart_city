@@ -8,6 +8,8 @@ import * as vehiculeModel from "../model/vehicule.js";
  *      Vehicule:
  *          type: object
  *          properties:
+ *              id:
+ *                  type: integer
  *              immatriculation:
  *                  type: string
  *              nbPlace:
@@ -25,7 +27,7 @@ import * as vehiculeModel from "../model/vehicule.js";
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/Immatriculation'
+ *                      $ref: '#/components/schemas/Vehicule'
  */
 const addVehicule = async (req,res)=>{
     try{
@@ -46,10 +48,7 @@ const addVehicule = async (req,res)=>{
  *          content:
  *              application/json:
  *                  schema:
- *                      type: object
- *                      properties:
- *                          immatriculation:
- *                              type: string
+ *                      $ref: '#/components/schemas/VehiculeId'
  */
 const getVehicule = async (req,res)=>{
     try{
@@ -72,6 +71,10 @@ const getVehicule = async (req,res)=>{
  *   responses:
  *     updateVehicule:
  *       description: update the given vehicule
+ *       content:
+ *          application/json:
+ *              schema:
+ *                  $ref: '#/components/schemas/VehiculeToUpdate'
  */
 const updateVehicule = async (req,res)=>{
     try{
@@ -99,8 +102,8 @@ const updateVehicule = async (req,res)=>{
  *                  schema:
  *                      type: object
  *                      properties:
- *                          immatriculation:
- *                              type: string
+ *                          vehiculeId:
+ *                              type: integer
  */
 const deleteVehicule = async (req,res)=>{
     try{
@@ -120,13 +123,15 @@ const deleteVehicule = async (req,res)=>{
 /**
  * @swagger
  * components:
- *  responses:
- *      searchVehicule:
- *          description: search vehicules with the given params
- *          content:
- *              application/json:
- *                  schema:
- *                      $ref: '#/components/schemas/Vehicule'
+ *   responses:
+ *     searchVehicule:
+ *       description: Liste des véhicules correspondant aux paramètres de recherche
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/components/schemas/Vehicule'
  */
 const getFilteredVehicule = async (req,res)=>{
     try{

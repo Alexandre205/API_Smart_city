@@ -11,15 +11,16 @@ const routerVehicule = Router();
  *  get:
  *     security:
  *         - bearerAuth: []
+ *     summary: récupere un vehicule
  *     tags:
  *         - Vehicule
  *     parameters:
  *         - in: path
- *           name: immatriculation
- *           schema:
- *             type: string
- *           required: true
- *           description: L'id du vehicule à trouver
+ *           description : id du vehicule a récupérer
+ *           content:
+ *                 application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/VehiculeId' 
  *     responses:
  *         200:
  *             $ref: '#/components/responses/getVehicule'
@@ -42,6 +43,7 @@ routerVehicule.get('/:id',checkJWT,userAuthentification,validation.validateVehic
  *  post:
  *      security:
  *          - bearerAuth: []
+ *      summary: crée un vehicule
  *      tags:
  *          - Vehicule
  *      requestBody:
@@ -71,6 +73,7 @@ routerVehicule.post('/',checkJWT,userAuthentification,validation.validateVehicul
  *  patch:
  *       security:
  *           - bearerAuth : []
+ *       summary: modifie un vehcule
  *       tags:
  *          - Vehicule
  *       requestBody:
@@ -105,13 +108,14 @@ routerVehicule.patch('/',checkJWT,userAuthentification,validation.validateVehicl
  *         - bearerAuth: []
  *     tags:
  *         - Vehicule
+ *     summary: supprime un vehicule
  *     parameters:
  *         - in: path
- *           name: immatriculation
- *           schema:
- *             type: string
- *           required: true
- *           description: L'id du vehicule à supprimer
+ *           description : id du vehicule a supprimer
+ *           content:
+ *                 application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/VehiculeId' 
  *     responses:
  *         200:
  *           description: Véhicule supprimer
@@ -127,6 +131,32 @@ routerVehicule.patch('/',checkJWT,userAuthentification,validation.validateVehicl
  *             description: erreur serveur
  */
 routerVehicule.delete('/:id',checkJWT,userAuthentification,validation.validateVehiculeDelete,vehiculeController.deleteVehicule);
+
+
+
+/**
+ * @swagger
+ * /vehicule:
+ *   get:
+ *     tags:
+ *       - Vehicule
+ *     summary: Recherche de véhicules
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           $ref: '#/components/schemas/VehiculeSearch'
+ *         description: Paramètres de recherche combinés
+ *     responses:
+ *       200:
+ *         description: Liste des véhicules correspondant
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Vehicule'
+ */
 
 routerVehicule.get('/',checkJWT,validation.validateVehiculeSearch,vehiculeController.getFilteredVehicule);
 
