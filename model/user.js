@@ -48,7 +48,7 @@ export const readUserByMail = async function (queryBuilder, {mail}) {
 export const deleteUser = async function(queryBuilder,{utilisateurId,authId}){
     let query = queryBuilder('utilisateur').where({id : utilisateurId});
     if(authId){
-        query = query.where({id:sessionId});
+        query = query.where({id:authId});
     }
     return await query.del();
 }
