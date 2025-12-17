@@ -4,6 +4,9 @@
 
 # Commandes à lancer dans l'ordre pour faire du dev
 
+## Télécharger les dépendances
+	 npm i
+
 ## Lancer le docker
      npm run startDocker
 
