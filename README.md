@@ -5,16 +5,16 @@
 # Commandes à lancer dans l'ordre pour faire du dev
 
 ## Lancer le docker
-  ```npm run startDocker```
+     npm run startDocker
 
 ## Initialiser la base de donnée Postgres
-    ```npm run initDB```
+     npm run initDB
 
 ## Initialiser la base de donnée Redis
-    ```npm run startRedis```
+     npm run startRedis 
 
 ## Lancer le projet
-    ```npm run dev```
+    npm run dev
 
 
 
