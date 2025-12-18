@@ -156,6 +156,16 @@ routerVehicule.delete('/:id',checkJWT,userAuthentification,validation.validateVe
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Vehicule'
+ *       400:
+ *           description: mauvais format
+ *       401:
+ *           $ref: '#/components/responses/UnauthorizedError'
+ *       403:
+ *           description: acces non autorisé
+ *       404:
+ *           description: vehicule non trouvé
+ *       500:
+ *           description: erreur serveur
  */
 
 routerVehicule.get('/',checkJWT,validation.validateVehiculeSearch,vehiculeController.getFilteredVehicule);
