@@ -82,7 +82,7 @@ const getTrajetFiltrer = async (SQLQueryBuilder,{trajetId,vehiculeId,dateDepart,
         baseQuery = baseQuery.where({trajet_id:trajetId});
     }
     if(vehiculeId){
-        baseQuery = baseQuery.where('vehicule','ilike',vehiculeId);
+        baseQuery = baseQuery.where({vehicule:vehiculeId});
     }
     if(addresseArrivee){
         baseQuery = baseQuery.where('addresse_arrivee','ilike',addresseArrivee+'%');
