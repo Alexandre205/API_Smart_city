@@ -84,28 +84,49 @@ INSERT INTO utilisateur (nom, prenom, email, telephone, mot_de_passe) VALUES
 ('Martin', 'Sophie', 'sophie.martin@example.com', '+32486111222', '$argon2id$v=19$m=65536,t=3,p=4$t2QL/tc5mAcFlV1SMgTOEw$WB6+rADi4T0ozGxeJizK8gimg+YRSlwpqaArSTkh3EI'),--azerty
 ('Lefevre', 'Luc', 'luc.lefevre@example.com', '+32478123456', '$argon2id$v=19$m=65536,t=3,p=4$JlAE9tgu5/g9dR3WprPOEg$UaGDrfUgMaqxAq4GDmZuE6pu+aU3wcjw59H6lRCAGGM'),--123456
 ('Lambert', 'Julie', 'julie.lambert@example.com', '+32495111222', '$argon2id$v=19$m=65536,t=3,p=4$yvrqi871ytr1zkeELBEKmw$eqL0h0aiDaM/rRZItCWyAj6GeerJMJT11eSHy3aHRh0'),--pass123
-('Petit', 'Maxime', 'maxime.petit@example.com', '+32493123456', '$argon2id$v=19$m=65536,t=3,p=4$v9pukXDN4mtwCQ2+N3llaA$AM8o1sVVsUwjhRbjQujwHmY3P10QpBRXt3gp/5jp8iA');--motdepasse
+('Petit', 'Maxime', 'maxime.petit@example.com', '+32493123456', '$argon2id$v=19$m=65536,t=3,p=4$v9pukXDN4mtwCQ2+N3llaA$AM8o1sVVsUwjhRbjQujwHmY3P10QpBRXt3gp/5jp8iA'),--motdepasse
+('Simon', 'Claire', 'claire.simon@example.com', '+32499111223', 'claire123'),--claire123
+('Bernard', 'Thomas', 'thomas.bernard@example.com', '+32488123456', 'thomaspwd'),--thomaspwd
+('Dubois', 'Emma', 'emma.dubois@example.com', '+32476123456', 'emma2026'),--emma2026
+('Moreau', 'Lucas', 'lucas.moreau@example.com', '+32498111222', 'lucaspass'),--lucaspass
+('Rousseau', 'Laura', 'laura.rousseau@example.com', '+32470199887', 'laura');--laura
 
 INSERT INTO vehicule (immatriculation, nb_places_maximum, utilisateur) VALUES
 ('1-ABC-123', 5, 1),
 ('2-DEF-456', 4, 2),
 ('1-GHI-789', 7, 3),
 ('2-JKL-321', 5, 4),
-('1-MNO-654', 2, 5);
+('1-MNO-654', 2, 5),
+('1-PQR-987', 5, 6),
+('2-STU-654', 4, 7),
+('1-VWX-321', 6, 8),
+('2-YZA-111', 5, 9),
+('1-BCD-222', 3, 10);
 
 INSERT INTO trajet (date_depart, date_arrivee, addresse_depart, addresse_arrivee, coordonnee_depart, coordonnee_arrivee, vehicule) VALUES
 ('2026-11-05 08:00:00', '2026-11-05 09:15:00', 'Bruxelles, Place de Brouckère', 'Liège, Gare de Liège-Guillemins', POINT(50.8503, 4.3517), POINT(50.6292, 5.5797), 1),
 ('2026-11-06 07:30:00', '2026-11-06 08:45:00', 'Namur, Namur Centre', 'Bruxelles, Place du Luxembourg', POINT(50.4669, 4.8675), POINT(50.8371, 4.3676), 2),
 ('2026-11-07 09:00:00', '2026-11-07 10:30:00', 'Mons, Mons Grand Place', 'Ottignies, Louvain-la-Neuve Gare', POINT(50.4541, 3.9567), POINT(50.6683, 4.6117), 3),
 ('2026-11-05 18:00:00', '2026-11-05 19:15:00', 'Charleroi, Charleroi Sud', 'Namur, Namur Station', POINT(50.4114, 4.4445), POINT(50.4669, 4.8675), 4),
-('2026-11-08 06:45:00', '2026-11-08 08:15:00', 'Brugge, Bruges Centre', 'Gent, Gand Saint-Pierre', POINT(51.2093, 3.2247), POINT(51.0358, 3.7103), 5);
+('2026-11-08 06:45:00', '2026-11-08 08:15:00', 'Brugge, Bruges Centre', 'Gent, Gand Saint-Pierre', POINT(51.2093, 3.2247), POINT(51.0358, 3.7103), 5),
+('2026-11-09 07:00:00', '2026-11-09 08:30:00','Bruxelles, Gare Centrale', 'Anvers, Antwerpen-Centraal',POINT(50.8466, 4.3528), POINT(51.2172, 4.4211), 6),
+('2026-11-10 16:30:00', '2026-11-10 18:00:00','Liège, Centre-ville', 'Namur, Citadelle',POINT(50.6412, 5.5718), POINT(50.4669, 4.8675), 7),
+('2026-11-11 08:15:00', '2026-11-11 09:45:00','Arlon, Gare', 'Luxembourg, Gare Centrale',POINT(49.6833, 5.8167), POINT(49.6116, 6.1319), 8),
+('2026-11-12 17:00:00', '2026-11-12 18:20:00','Tournai, Centre', 'Lille, Gare Lille-Flandres',POINT(50.6071, 3.3893), POINT(50.6366, 3.0636), 9),
+('2026-11-13 06:45:00', '2026-11-13 08:00:00','Hasselt, Station', 'Maastricht, Centre',POINT(50.9307, 5.3325), POINT(50.8514, 5.6900), 10);
+
 
 INSERT INTO demande (date_depart, date_arrivee, addresse_depart, addresse_arrivee, coordonnee_depart, coordonnee_arrivee, demandeur) VALUES
 ('2026-11-05 07:45:00', '2026-11-05 09:30:00', 'Bruxelles, Place Flagey', 'Liège, Gare de Liège-Guillemins', POINT(50.8261, 4.3737), POINT(50.6292, 5.5797), 2),
 ('2026-11-06 07:00:00', '2026-11-06 09:00:00', 'Namur, Namur Centre', 'Bruxelles, Place du Luxembourg', POINT(50.4669, 4.8675), POINT(50.8371, 4.3676), 3),
 ('2026-11-07 08:45:00', '2026-11-07 10:45:00', 'Mons, Mons Grand Place', 'Ottignies, Louvain-la-Neuve Gare', POINT(50.4541, 3.9567), POINT(50.6683, 4.6117), 4),
 ('2026-11-05 17:45:00', '2026-11-05 19:30:00', 'Charleroi, Charleroi Sud', 'Namur, Namur Station', POINT(50.4114, 4.4445), POINT(50.4669, 4.8675), 5),
-('2026-11-08 06:30:00', '2026-11-08 08:30:00', 'Brugge, Bruges Centre', 'Gent, Gand Saint-Pierre', POINT(51.2093, 3.2247), POINT(51.0358, 3.7103), 1);
+('2026-11-08 06:30:00', '2026-11-08 08:30:00', 'Brugge, Bruges Centre', 'Gent, Gand Saint-Pierre', POINT(51.2093, 3.2247), POINT(51.0358, 3.7103), 1),
+('2026-11-09 06:50:00', '2026-11-09 08:45:00','Bruxelles, Schuman', 'Anvers, Centre',POINT(50.8419, 4.3811), POINT(51.2194, 4.4025), 7),
+('2026-11-10 16:00:00', '2026-11-10 18:30:00','Liège, Gare', 'Namur, Centre',POINT(50.6292, 5.5797), POINT(50.4669, 4.8675), 8),
+('2026-11-11 08:00:00', '2026-11-11 10:00:00','Arlon, Centre', 'Luxembourg, Kirchberg',POINT(49.6833, 5.8167), POINT(49.6230, 6.1590), 9),
+('2026-11-12 16:45:00', '2026-11-12 18:30:00','Tournai, Gare', 'Lille, Centre',POINT(50.6071, 3.3893), POINT(50.6292, 3.0573), 10),
+('2026-11-13 06:30:00', '2026-11-13 08:15:00','Hasselt, Centre', 'Maastricht, Gare',POINT(50.9307, 5.3325), POINT(50.8514, 5.6900), 6);
 
 
 INSERT INTO passager (trajet, utilisateur_id) VALUES
@@ -114,7 +135,14 @@ INSERT INTO passager (trajet, utilisateur_id) VALUES
 (2, 4),
 (3, 5),
 (4, 1),
-(5, 2);
+(5, 2),
+(6, 7),
+(6, 8),
+(7, 9),
+(7, 10),
+(8, 6),
+(9, 7),
+(10, 8);
 
 INSERT INTO admin (email,mot_de_passe) VALUES
 ('admin@ouivraiment.com','$argon2id$v=19$m=65536,t=3,p=4$Mza3fdPrZ0R2yZpvRlOh1w$W1PyXinvrNsXigvyR91P8qcAr2tM8+Zsehf7pbluNbw');--adminpassword
