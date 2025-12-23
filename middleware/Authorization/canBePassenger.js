@@ -11,7 +11,7 @@ export const canBePassenger = async function (req, res, next) {
             return res.status(404).send("Problème lors de la recherche du trajet")
         }
 
-        const carPlaces = await getVehiculeFilter(dbPool, {immatriculation:car[0].vehicule, fields:"nb_places_maximum"});
+        const carPlaces = await getVehiculeFilter(dbPool, {vehiculeId:car[0].vehicule, fields:"nb_places_maximum"});
         if(carPlaces.length === 0){
             return res.status(404).send("Problème lors de la recherche du véhicule associé au trajet");
         }
@@ -21,7 +21,7 @@ export const canBePassenger = async function (req, res, next) {
             return res.status(500).send("Problème lors de la recherche des passagers associés au trajet");
         }
 
-        if(passagers.length < carPlaces[0].nb_places_maximum){
+        if(passagers.length + 1 < carPlaces[0].nb_places_maximum){
             next();
         }else{
             return res.status(409).send("Plus aucune place dans le véhicule")

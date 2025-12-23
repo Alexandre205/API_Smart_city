@@ -53,9 +53,9 @@ export const createRideAndCar = async function(SQLQueryBuilder,{ infos, authId }
             userId = authId;
         }
 
-        const carID = await trx('vehicule').insert({immatriculation:infos.immatriculation, nb_places_maximum:infos.nbPlaceMax,utilisateur:userId}).returning('immatriculation');
+        const carID = await trx('vehicule').insert({immatriculation:infos.immatriculation, nb_places_maximum:infos.nbPlaceMax,utilisateur:userId}).returning('vehicule_id');
         if(carID[0]) {
-           trajetID = await trx('trajet').insert({date_depart: infos.dateDepart, date_arrivee: infos.dateArrivee, vehicule: carID[0].immatriculation, addresse_depart: infos.addresseDepart, addresse_arrivee: infos.addresseArrivee, coordonnee_depart: infos.coordonneeDepart, coordonnee_arrivee: infos.coordonneeArrivee}).returning('trajet_id');
+           trajetID = await trx('trajet').insert({date_depart: infos.dateDepart, date_arrivee: infos.dateArrivee, vehicule: carID[0].vehicule_id, addresse_depart: infos.addresseDepart, addresse_arrivee: infos.addresseArrivee, coordonnee_depart: infos.coordonneeDepart, coordonnee_arrivee: infos.coordonneeArrivee}).returning('trajet_id');
         }
         if(trajetID[0]) {
             await trx.commit();
