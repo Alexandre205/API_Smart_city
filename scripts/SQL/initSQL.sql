@@ -85,11 +85,11 @@ INSERT INTO utilisateur (nom, prenom, email, telephone, mot_de_passe) VALUES
 ('Lefevre', 'Luc', 'luc.lefevre@example.com', '+32478123456', '$argon2id$v=19$m=65536,t=3,p=4$JlAE9tgu5/g9dR3WprPOEg$UaGDrfUgMaqxAq4GDmZuE6pu+aU3wcjw59H6lRCAGGM'),--123456
 ('Lambert', 'Julie', 'julie.lambert@example.com', '+32495111222', '$argon2id$v=19$m=65536,t=3,p=4$yvrqi871ytr1zkeELBEKmw$eqL0h0aiDaM/rRZItCWyAj6GeerJMJT11eSHy3aHRh0'),--pass123
 ('Petit', 'Maxime', 'maxime.petit@example.com', '+32493123456', '$argon2id$v=19$m=65536,t=3,p=4$v9pukXDN4mtwCQ2+N3llaA$AM8o1sVVsUwjhRbjQujwHmY3P10QpBRXt3gp/5jp8iA'),--motdepasse
-('Simon', 'Claire', 'claire.simon@example.com', '+32499111223', 'claire123'),--claire123
-('Bernard', 'Thomas', 'thomas.bernard@example.com', '+32488123456', 'thomaspwd'),--thomaspwd
-('Dubois', 'Emma', 'emma.dubois@example.com', '+32476123456', 'emma2026'),--emma2026
-('Moreau', 'Lucas', 'lucas.moreau@example.com', '+32498111222', 'lucaspass'),--lucaspass
-('Rousseau', 'Laura', 'laura.rousseau@example.com', '+32470199887', 'laura');--laura
+('Simon', 'Claire', 'claire.simon@example.com', '+32499111223', '$argon2id$v=19$m=65536,t=3,p=4$EhlBj+Bj+74RYJRGOGKyBA$aKamBfWW5UnFf/8EG5gGqXBYKWHHmmHGy/6GL4PBxIc'),--claire123
+('Bernard', 'Thomas', 'thomas.bernard@example.com', '+32488123456', '$argon2id$v=19$m=65536,t=3,p=4$7tJ5BCQDe00OQ5TdXASeKg$a64Nv1IIEHVusaLrVt9f8SzZe9P72/ZgAcItNhnXa2M'),--thomaspwd
+('Dubois', 'Emma', 'emma.dubois@example.com', '+32476123456', '$argon2id$v=19$m=65536,t=3,p=4$+5wAEFPu9fKl15WEF5SUWw$TSN3SUGFWOKrJLMCfhLN0r086eu4ewEWpV8q5wcwkE4'),--emma2026
+('Moreau', 'Lucas', 'lucas.moreau@example.com', '+32498111222', '$argon2id$v=19$m=65536,t=3,p=4$Xzg1wnYy5Ztaj1S4TLNl9w$Hhtpb8/zC5b0fnpso9PJmn8nNFgKzMwDueSNWGJ/oeA'),--lucaspass
+('Rousseau', 'Laura', 'laura.rousseau@example.com', '+32470199887', '$argon2id$v=19$m=65536,t=3,p=4$ghRjhULRfTm/cxY/2OE25A$gvkawk13b+mqoAd8r6ZKm/iEt/Mr4y5vBhswyQR55fI');--laura
 
 INSERT INTO vehicule (immatriculation, nb_places_maximum, utilisateur) VALUES
 ('1-ABC-123', 5, 1),
