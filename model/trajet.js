@@ -4,7 +4,7 @@ import {readVehicule} from './vehicule.js';
 
 const createTrajet = async(SQLQueryBuilder,{dateDepart,dateArrivee,vehiculeId,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
     if(authId){
-        const vehic = await readVehicule(SQLQueryBuilder,{vehicule_id:vehiculeId});
+        const vehic = await readVehicule(SQLQueryBuilder,{id:vehiculeId});
         if(vehic?.utilisateur !== authId){
             throw new Error("Id vehicule non valide");
         }
