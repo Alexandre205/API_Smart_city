@@ -23,15 +23,15 @@ const createTrajet = async(SQLQueryBuilder,{dateDepart,dateArrivee,vehiculeId,ad
 
 const readTrajet = async (SQLQueryBuilder,{id})=>{
     const data = await SQLQueryBuilder.select('trajet_id','date_depart','date_arrivee','vehicule','addresse_depart','addresse_arrivee','coordonnee_arrivee','coordonnee_depart')
-    .from('trajet')
-    .where({trajet_id:id});
+        .from('trajet')
+        .where({trajet_id:id});
     return data[0];
 }
 
 
 const updateTrajet = async (SQLQueryBuilder,{trajetId,dateDepart,dateArrivee,vehiculeId,addresseArrivee,addresseDepart,coordonneeArrivee,coordonneeDepart,authId})=>{
     if(authId){
-        const vehic = await readVehicule(SQLQueryBuilder,{vehicule_id:vehiculeId});
+        const vehic = await readVehicule(SQLQueryBuilder,{id : vehiculeId});
         if(vehic?.utilisateur !== authId){
             throw new Error("Immatriculation non valide");
         }
@@ -66,7 +66,7 @@ const updateTrajet = async (SQLQueryBuilder,{trajetId,dateDepart,dateArrivee,veh
 
 const deleteTrajet = async (SQLQueryBuilder,{id,authId})=>{
     let query = SQLQueryBuilder('trajet')
-    .where({trajet_id:id});
+        .where({trajet_id:id});
     if(authId){
         query = query.join('vehicule','trajet.vehicule','=','vehicule.immatriculation');
         query = query.join('utilisateur','vehicule.utilisateur','=','utilisateur.id');
@@ -82,7 +82,7 @@ const getTrajetFiltrer = async (SQLQueryBuilder,{trajetId,vehiculeId,dateDepart,
         baseQuery = baseQuery.where({trajet_id:trajetId});
     }
     if(vehiculeId){
-        baseQuery = baseQuery.where('vehicule','ilike',vehiculeId+'%');
+        baseQuery = baseQuery.where({vehicule:vehiculeId});
     }
     if(addresseArrivee){
         baseQuery = baseQuery.where('addresse_arrivee','ilike',addresseArrivee+'%');

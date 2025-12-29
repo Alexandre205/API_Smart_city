@@ -35,7 +35,7 @@ const updateVehicule = async (SQLQueryBuilder,{utilisateurId,vehiculeId,immatric
 
     if(authId){
         query = query.join('utilisateur','vehicule.utilisateur','=','utilisateur.id');
-        query = query.where({id:authId});
+        query = query.where({utilisateur:authId});
     }
     const clePrimaire = await query.update(dataToUpdate).returning('vehicule_id');
     return clePrimaire[0];

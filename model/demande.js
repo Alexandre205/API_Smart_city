@@ -49,7 +49,7 @@ const updateDemande = async (SQLQueryBuilder,{demandeId,utilisateurId,addresseDe
     }
     let query = SQLQueryBuilder('demande').where({demande_id:demandeId});
     if(authId){
-        query = query.where({utilisateurId:authId});
+        query = query.where({demandeur:authId});
     }
     const id = await query.update(dataToUpdate).returning('demande_id');
     return id[0];
