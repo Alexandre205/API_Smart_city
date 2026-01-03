@@ -1,4 +1,5 @@
 # Pour faire fonctionner le projet, écrire dans le terminal
+Créez un fichier .env à la racine, basez vous sur .env.example
 
 	docker compose up
 
