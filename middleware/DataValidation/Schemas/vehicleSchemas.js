@@ -108,7 +108,7 @@ const idSchema = vine.object({
  *       additionalProperties: false
  */
 const optionalSchema = vine.object({
-    vehicule_id: vine.number().optional(),
+    vehiculeId: vine.number().optional(),
     immatriculation: vine.string().optional(),
     nbPlaceMax: vine.number().positive().optional(),
     utilisateurId: vine.number().optional(),
